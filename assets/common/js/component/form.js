@@ -87,6 +87,9 @@ class Form {
                     case 'custom':
                         d += this.getBlockHtml(form);
                         break;
+                    case 'explain':
+                        d += this.explainHtml(form);
+                        break;
                 }
             });
             d += `</form></div>`;
@@ -155,6 +158,12 @@ class Form {
             ${widgetHtml}
             </div>
             </div>`;
+    }
+
+    explainHtml(form) {
+        // 说明文本：允许 placeholder 中包含 HTML（如 <a> 链接、<b> 加粗等）
+        // 使用 layui-form-mid 保持与表单的对齐风格
+        return this.getBlockHtml(form, `<div class="layui-form-mid">${form.placeholder ?? ""}</div>`);
     }
 
     inputHtml(form, type = "text") {
@@ -1353,6 +1362,9 @@ class Form {
             case 'custom':
                 d = this.getBlockHtml(form);
                 break;
+            case 'explain':
+                d = this.explainHtml(form);
+                break;
         }
 
 
@@ -1410,6 +1422,9 @@ class Form {
                 break;
             case 'custom':
                 this.customRegister(form);
+                break;
+            case 'explain':
+                // explain 类型无需注册事件
                 break;
         }
 
